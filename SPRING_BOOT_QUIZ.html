@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieAPI Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .question { margin: 20px 0; }
+        .score { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>MovieAPI Quiz</h1>
+    <div id="quiz"></div>
+    <div class="score" id="score"></div>
+    <script>
+        const questions = [
+            { question: "What is the primary language used for the MovieAPI backend?", answers: ["Java", "Python", "JavaScript"], correct: 0 },
+            { question: "How does MovieAPI handle data persistence?", answers: ["In-memory", "Using SQL databases", "Flat files"], correct: 1 },
+            { question: "What framework does MovieAPI use for Java?", answers: ["Spring", "Django", "Flask"], correct: 0 },
+            { question: "Is authentication required for accessing MovieAPI endpoints?", answers: ["Yes", "No"], correct: 0 },
+            { question: "What is the response format of MovieAPI?", answers: ["XML", "JSON", "YAML"], correct: 1 },
+            { question: "Which method is used to create a new movie entry in MovieAPI?", answers: ["GET", "POST", "PUT"], correct: 1 },
+            { question: "Can users rate movies through MovieAPI?", answers: ["Yes", "No"], correct: 0 },
+            { question: "What HTTP status code indicates success for API requests?", answers: ["200", "404", "500"], correct: 0 },
+            { question: "Which database is primarily used by MovieAPI?", answers: ["PostgreSQL", "MongoDB", "SQLite"], correct: 0 },
+            { question: "Does MovieAPI support pagination?", answers: ["Yes", "No"], correct: 0 }
+        ];
+        let score = 0;
+        let currentQuestion = 0;
+
+        function displayQuestion() {
+            if (currentQuestion < questions.length) {
+                const questionContainer = document.getElementById('quiz');
+                questionContainer.innerHTML = '';
+                const q = questions[currentQuestion];
+                questionContainer.innerHTML += `<div class='question'><h2>${q.question}</h2>`;
+                q.answers.forEach((answer, index) => {
+                    questionContainer.innerHTML += `<button onclick='submitAnswer(${index})'>${answer}</button>`;
+                });
+                questionContainer.innerHTML += '</div>';
+            } else {
+                displayScore();
+            }
+        }
+
+        function submitAnswer(selected) {
+            const q = questions[currentQuestion];
+            if (selected === q.correct) {
+                alert('Correct answer!');
+                score++;
+            } else {
+                alert('Wrong answer! Correct answer is: ' + q.answers[q.correct]);
+            }
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        function displayScore() {
+            const scoreContainer = document.getElementById('score');
+            scoreContainer.innerHTML = 'Your final score: ' + score + ' out of ' + questions.length;
+        }
+
+        displayQuestion();
+    </script>
+</body>
+</html>
